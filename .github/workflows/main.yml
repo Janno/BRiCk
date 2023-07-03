@@ -48,7 +48,7 @@ jobs:
 #         env:
 #           WORKDIR: $GITHUB_WORKSPACE
         with:
-          before_install: 
+          before_install: |
             startGroup "Pin dependencies"
               opam repo add -y iris-dev https://gitlab.mpi-sws.org/iris/opam.git
               sudo apt-get update -y -q
