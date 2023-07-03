@@ -74,14 +74,12 @@ jobs:
           script: |
             startGroup "Build"
               opam install -y -v -j 2 coq-cpp2v-bin
-              opam install -y -v -j 2 $PACKAGE
+              OPAMWITHTEST="1" opam install -y -v -j 2 $PACKAGE
               opam list
             endGroup
           coq_version: ${{ matrix.coq_version }}
           ocaml_version: ${{ matrix.ocaml_version }}
-          export: 'OPAMWITHTEST OPAMDEBUG WORKDIR'
+          export: ''
         env:
-          OPAMWITHTEST: 'true'
           OPAMDEBUG: '0'
-          WORKDIR: $GITHUB_WORKSPACE
 
