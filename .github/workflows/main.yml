@@ -60,7 +60,7 @@ jobs:
           install: |
             startGroup "Install dependencies"
               sudo apt-get update -y -q
-              ls -al $WORKDIR
+              sudo apt-get install -y -q llvm llvm-dev clang
               opam pin add -n -y -k path coq-cpp2v-bin $WORKDIR
               opam pin add -n -y -k path $PACKAGE $WORKDIR
               opam update -y
