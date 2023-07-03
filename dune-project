@@ -27,4 +27,4 @@
 (package
  (name coq-cpp2v-bin)
  (synopsis "Binary package for cpp2v")
- (depends conf-clang conf-llvm))
+ (depends conf-clang conf-llvm conf-cmake))
