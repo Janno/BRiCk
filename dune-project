@@ -18,13 +18,13 @@
  (name coq-cpp2v)
  (synopsis "Frontend and program logic for C++")
  (depends
-  (coq (and (>= 8.17.0) (< 8.18~)))
+  (coq (= dev))
   (coq-ext-lib (= 0.11.8))
   (coq-iris (= dev.2023-04-06.0.09fa9322))
-  (elpi (= 1.16.9))
-  (coq-elpi (= 1.17.1))))
+  (elpi (>= 1.16.9))
+  (coq-elpi (= dev))))
 
 (package
  (name coq-cpp2v-bin)
  (synopsis "Binary package for cpp2v")
- (depends conf-clang))
+ (depends conf-clang conf-llvm))
