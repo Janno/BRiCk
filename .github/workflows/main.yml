@@ -56,6 +56,8 @@ jobs:
               sudo apt-get install -y -q rsync
               opam pin add -n -y -k git coq-elpi git+https://github.com/LPCIC/coq-elpi.git#coq-master
               opam pin add -n -y -k git coq-ext-lib git+https://github.com/coq-community/coq-ext-lib#master
+              opam repo
+              opam list
             endGroup
           opam_file: 'coq-cpp2v.opam'
           install: |
@@ -65,7 +67,14 @@ jobs:
               opam pin add -n -y -k path coq-cpp2v-bin $WORKDIR
               opam pin add -n -y -k path $PACKAGE $WORKDIR
               opam update -y
+              opam install --confirm-level=unsafe-yes -j 2 coq-cpp2v-bin --deps-only
               opam install --confirm-level=unsafe-yes -j 2 $PACKAGE --deps-only
+            endGroup
+          script: |
+            startGroup "Build"
+              opam install -y -v -j 2 coq-cpp2v-bin
+              opam install -y -v -j 2 $PACKAGE
+              opam list
             endGroup
           coq_version: ${{ matrix.coq_version }}
           ocaml_version: ${{ matrix.ocaml_version }}
