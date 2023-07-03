@@ -64,6 +64,6 @@ jobs:
           export: 'OPAMWITHTEST OPAMDEBUG WORKDIR'
         env:
           OPAMWITHTEST: 'true'
-          OPAMDEBUG: '1'
+          OPAMDEBUG: '0'
           WORKDIR: $GITHUB_WORKSPACE
 
