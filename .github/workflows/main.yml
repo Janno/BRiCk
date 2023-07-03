@@ -48,7 +48,15 @@ jobs:
 #         env:
 #           WORKDIR: $GITHUB_WORKSPACE
         with:
-          before_install: 'opam repo add -y iris-dev https://gitlab.mpi-sws.org/iris/opam.git && sudo apt-get update -y -q && sudo apt-get install -y -q clang-13 && sudo apt-get install -y -q rsync'
+          before_install: 
+            startGroup "Pin dependencies"
+              opam repo add -y iris-dev https://gitlab.mpi-sws.org/iris/opam.git
+              sudo apt-get update -y -q
+              sudo apt-get install -y -q clang-13
+              sudo apt-get install -y -q rsync
+              opam pin add -n -y -k git coq-elpi git+https://github.com/LPCIC/coq-elpi.git#coq-master
+              opam pin add -n -y -k git coq-ext-lib git+https://github.com/coq-community/coq-ext-lib#master
+            endGroup
           opam_file: 'coq-cpp2v.opam'
           install: |
             startGroup "Install dependencies"
