@@ -102,10 +102,8 @@ jobs:
               opam pin add -n -y -k git coq-ext-lib git+https://github.com/coq-community/coq-ext-lib#master
               opam repo
               opam list
-              sudo apt-get update -y -q
-              sudo apt-get install -y -q llvm llvm-dev clang
             endGroup
-          opam_file: 'coq-cpp2v-bin.opam'
+          opam_file: 'coq-cpp2v.opam'
           coq_version: ${{ matrix.coq_version }}
           ocaml_version: ${{ matrix.ocaml_version }}
           export: ''
