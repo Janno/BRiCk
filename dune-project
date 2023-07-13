@@ -21,7 +21,7 @@
   (coq (= dev))
   (coq-ext-lib (= dev))
   (coq-iris (= dev.2023-04-06.0.09fa9322))
-  (elpi (>= 1.16.9))
+  (elpi (>= 1.16.5))
   (coq-elpi (= dev))))
 
 (package

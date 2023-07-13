@@ -98,6 +98,9 @@ jobs:
           before_install: |
             startGroup "Pin dependencies"
               opam repo add -y iris-dev https://gitlab.mpi-sws.org/iris/opam.git
+              # pin some dependencies to the branches used by coq CI
+              # NOTE: iris and stdpp use hardcoded versions from ./dune-project.
+              # This is also done for other projects in Coq CI that depend on iris and stdpp
               opam pin add -n -y -k git coq-elpi git+https://github.com/LPCIC/coq-elpi.git#coq-master
               opam pin add -n -y -k git coq-ext-lib git+https://github.com/coq-community/coq-ext-lib#master
               opam repo
