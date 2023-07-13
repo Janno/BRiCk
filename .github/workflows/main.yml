@@ -90,7 +90,7 @@ jobs:
           cache-name: cache-_build
         with:
           path: _build
-          key: ${{ runner.os }}-${{ matrix.coq_version }}-${{ matrix.ocaml_version }}-_build-${{ env.cache-name }}-${{ hashFiles('coq-cpp2v.opam') }}
+          key: ${{ runner.os }}-${{ matrix.coq_version }}-${{ matrix.ocaml_version }}-_build-${{ env.cache-name }}-${{ hashFiles('coq-cpp2v.opam') }}-${{ hashFiles('theories/**') }}
       - name: Cache opam switch
         uses: actions/cache@v2
         id: cache-opam
