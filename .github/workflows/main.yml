@@ -99,19 +99,32 @@ jobs:
         with:
           path: ~/.opam
           key: ${{ runner.os }}-${{ matrix.coq_version }}-${{ matrix.ocaml_version }}-opam-${{ env.cache-name }}-${{ hashFiles('coq-cpp2v.opam') }}
-      - if: steps.cache-opam.outputs.cache-hit != true
-        run: |
-          opam repo add -y iris-dev https://gitlab.mpi-sws.org/iris/opam.git && \
-          # pin some dependencies to the branches used by coq CI \
-          # NOTE: iris and stdpp use hardcoded versions from ./dune-project. \
-          # This is also done for other projects in Coq CI that depend on iris and stdpp. \
-          opam pin add -n -y -k git coq-elpi git+https://github.com/LPCIC/coq-elpi.git#coq-master && \
-          opam pin add -n -y -k git coq-ext-lib git+https://github.com/coq-community/coq-ext-lib#master && \
-          opam repo && \
-          opam list
       - uses: coq-community/docker-coq-action@v1
-        if: steps.cache-_build.outputs.cache-hit != 'true'
+        if: steps.cache-opam.outputs.cache-hit != 'true' && steps.cache-_build.outputs.cache-hit != 'true'
         with:
+          before_install: |
+            startGroup
+                  opam repo add -y iris-dev https://gitlab.mpi-sws.org/iris/opam.git
+                  # pin some dependencies to the branches used by coq CI
+                  # NOTE: iris and stdpp use hardcoded versions from ./dune-project.
+                  # This is also done for other projects in Coq CI that depend on iris and stdpp.
+                  opam pin add -n -y -k git coq-elpi git+https://github.com/LPCIC/coq-elpi.git#coq-master
+                  opam pin add -n -y -k git coq-ext-lib git+https://github.com/coq-community/coq-ext-lib#master
+                  opam repo
+                  opam list
+            endGroup
+          opam_file: 'coq-cpp2v.opam'
+          coq_version: ${{ matrix.coq_version }}
+          ocaml_version: ${{ matrix.ocaml_version }}
+          export: ''
+      - uses: coq-community/docker-coq-action@v1
+        if: steps.cache-opam.outputs.cache-hit == 'true' && steps.cache-_build.outputs.cache-hit != 'true'
+        with:
+          before_install: |
+            startGroup
+                  opam repo
+                  opam list
+            endGroup
           opam_file: 'coq-cpp2v.opam'
           coq_version: ${{ matrix.coq_version }}
           ocaml_version: ${{ matrix.ocaml_version }}
